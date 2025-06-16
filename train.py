@@ -4,7 +4,7 @@ import torch.nn as nn
 from torch.utils.data import DataLoader, WeightedRandomSampler
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, classification_report
 from collections import Counter
-from models.model import NoxVisionNet
+from models.gender_model import GenderNet
 from utils.gender_dataset import BalancedGenderDataset
 import numpy as np
 import os
@@ -69,7 +69,7 @@ def main():
     lr = 1e-4  # Lower learning rate for stability
     num_workers = 4
     device = torch.device("mps" if torch.backends.mps.is_available() else "cpu")
-    save_path = "best_gender_model_balanced.pt"
+    save_path = "gender_model.pt"
 
     # 📦 Datasets
     train_dataset = BalancedGenderDataset(train_path, is_train=True)
@@ -96,7 +96,7 @@ def main():
     )
 
     # 🧠 Model setup
-    model = NoxVisionNet(num_classes_identity=1).to(device)
+    model = GenderNet().to(device)
 
     # 📏 Calculate class weights for loss function
     class_weights = calculate_class_weights(train_dataset).to(device)
@@ -127,7 +127,7 @@ def main():
             labels = labels.to(device)
 
             optimizer.zero_grad()
-            gender_logits, _ = model(images)
+            gender_logits = model(images)
             loss = loss_fn(gender_logits, labels)
             loss.backward()
 
@@ -162,7 +162,7 @@ def main():
                 images = images.to(device)
                 labels = labels.to(device)
 
-                gender_logits, _ = model(images)
+                gender_logits = model(images)
                 loss = loss_fn(gender_logits, labels)
                 val_loss += loss.item()
 
@@ -189,13 +189,7 @@ def main():
         # 💾 Save best model
         if f1 > best_f1:
             best_f1 = f1
-            torch.save({
-                'model_state_dict': model.state_dict(),
-                'optimizer_state_dict': optimizer.state_dict(),
-                'epoch': epoch,
-                'best_f1': best_f1,
-                'class_weights': class_weights
-            }, save_path)
+            torch.save(model.state_dict(), "gender_model.pt", _use_new_zipfile_serialization=False)
             print(f"✅ Saved new best model (F1: {best_f1:.4f}) to {save_path}")
 
         # Print detailed classification report every 5 epochs
