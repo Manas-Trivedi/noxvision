@@ -35,7 +35,7 @@ def load_data(folder):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--test_dir', type=str, required=True, help="Path to Task_A test folder (with male/ and female/)")
-    parser.add_argument('--weights', type=str, default='best_gender_model_balanced.pt', help="Path to pretrained weights")
+    parser.add_argument('--weights', type=str, default='gender_model.pt', help="Path to pretrained weights")
     args = parser.parse_args()
 
     device = torch.device("mps" if torch.backends.mps.is_available() else "cpu")
