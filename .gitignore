@@ -14,10 +14,6 @@ data/
 *.tar
 *.tar.gz
 
-# Model checkpoints
-*.pt
-*.pth
-
 # Logs
 *.log
 logs/
