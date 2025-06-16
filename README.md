@@ -1,6 +1,6 @@
 # NoxVision — Gender Classification under Adverse Visual Conditions
 
-This repository contains my solution to **Task A** of the COMSYS Hackathon-5:
+This repository contains my solution to the COMSYS Hackathon-5:
 **Binary Gender Classification** under blur, fog, glare, low light, and other real-world distortions using robust deep learning.
 
 ---
@@ -35,7 +35,7 @@ I focused on female recall, fairness, and model stability under distortion-heavy
 
 1. **Clone this repository**:
    ```bash
-   git clone https://github.com/YOUR_USERNAME/noxvision.git
+   git clone https://github.com/Manas_Trivedi/noxvision.git
    cd noxvision
    ```
 
@@ -65,10 +65,10 @@ your_test_path/
 Run:
 
 ```bash
-python task_a_test.py --test_dir your_test_path
+python task_a.py --test_dir your_test_path
 ```
 
-By default, the model will load `best_gender_model_balanced.pt` from root.
+By default, the model will load `gender_model.pt` from root.
 
 ---
 
@@ -103,7 +103,7 @@ python train.py
 Accuracy : 0.9052
 Precision: 0.6860
 Recall   : 0.9114
-F1-score : 0.7834
+F1-score : 0.8034
 ```
 
 This demonstrates strong recall and fairness, especially under adverse visual conditions.
