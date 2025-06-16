@@ -159,7 +159,7 @@ def get_aggressive_train_transforms(image_size=224):
     """
     More aggressive augmentation for minority class samples
     """
-    transforms: List[Any] = [
+    transforms: List[Any] = [ 
         # More aggressive preprocessing
         A.Lambda(image=tan_triggs_preprocessing, p=0.5),
         A.Lambda(image=histogram_equalization, p=0.5),
