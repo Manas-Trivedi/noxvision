@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.ipynb_checkpoints
+
+# Virtual environments
+venv/
+.env/
+
+# Datasets
+data/
+*.zip
+*.tar
+*.tar.gz
+
+# Model checkpoints
+*.pt
+*.pth
+
+# Logs
+*.log
+logs/
+wandb/
+
+# OS metadata
+.DS_Store
+Thumbs.db
+
+# VSCode or PyCharm settings
+.vscode/
+.idea/
