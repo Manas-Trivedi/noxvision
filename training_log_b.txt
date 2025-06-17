@@ -1,0 +1,58 @@
+🔄 Created triplet dataset with 877 identities
+📊 Total samples available: 15408
+📊 Training triplets: 8770
+📊 Validation samples: 3376
+    Batch 100/877: Loss = 0.6022
+    Batch 200/877: Loss = 0.6133
+    Batch 300/877: Loss = 0.6195
+    Batch 400/877: Loss = 0.6031
+    Batch 500/877: Loss = 0.5908
+    Batch 600/877: Loss = 0.6026
+    Batch 700/877: Loss = 0.6171
+    Batch 800/877: Loss = 0.5994
+[Epoch  1/30] 📉 Loss: 0.6052
+    Batch 100/877: Loss = 0.5833
+    Batch 200/877: Loss = 0.6096
+    Batch 300/877: Loss = 0.5882
+    Batch 400/877: Loss = 0.5694
+    Batch 500/877: Loss = 0.5811
+    Batch 600/877: Loss = 0.5997
+    Batch 700/877: Loss = 0.5908
+    Batch 800/877: Loss = 0.6080
+[Epoch  2/30] 📉 Loss: 0.5986
+    Batch 100/877: Loss = 0.5991
+    Batch 200/877: Loss = 0.5941
+    Batch 300/877: Loss = 0.5930
+    Batch 400/877: Loss = 0.6001
+    Batch 500/877: Loss = 0.5617
+    Batch 600/877: Loss = 0.5713
+    Batch 700/877: Loss = 0.6071
+    Batch 800/877: Loss = 0.6086
+🔄 Created 500 positive and 500 negative pairs
+[Epoch  3/30] 📉 Loss: 0.5868 | 🎯 Val Acc: 0.6740 | 📊 Val F1: 0.6565 | 🔄 AUC: 0.7605
+💾 New best model saved! Acc: 0.6740
+    Batch 100/877: Loss = 0.5843
+    Batch 200/877: Loss = 0.5568
+    Batch 300/877: Loss = 0.5769
+    Batch 400/877: Loss = 0.5634
+    Batch 500/877: Loss = 0.5495
+    Batch 600/877: Loss = 0.5756
+    Batch 700/877: Loss = 0.5653
+    Batch 800/877: Loss = 0.5776
+[Epoch  4/30] 📉 Loss: 0.5697
+    Batch 100/877: Loss = 0.5596
+    Batch 200/877: Loss = 0.5637
+    Batch 300/877: Loss = 0.5636
+    Batch 400/877: Loss = 0.5588
+    Batch 500/877: Loss = 0.5545
+    Batch 600/877: Loss = 0.5689
+    Batch 700/877: Loss = 0.5583
+    Batch 800/877: Loss = 0.5366
+[Epoch  5/30] 📉 Loss: 0.5576
+    Batch 100/877: Loss = 0.5501
+    Batch 200/877: Loss = 0.5697
+    Batch 300/877: Loss = 0.5406
+    Batch 400/877: Loss = 0.5428
+    Batch 500/877: Loss = 0.5467
+    Batch 600/877: Loss = 0.5420
+    Batch 700/877: Loss = 0.5422

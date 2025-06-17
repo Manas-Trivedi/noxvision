@@ -263,7 +263,7 @@ def train():
     optimizer = optim.AdamW(model.parameters(), lr=lr, weight_decay=1e-4)
     scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=epochs)
 
-    best_val_acc = 0.0
+    best_val_acc = 0.6440
 
     # Add learning rate warmup
     warmup_epochs = 3
