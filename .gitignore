@@ -26,3 +26,6 @@ Thumbs.db
 # VSCode or PyCharm settings
 .vscode/
 .idea/
+
+#temporarily
+face_model.pt
