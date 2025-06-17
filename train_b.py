@@ -262,17 +262,7 @@ def train():
         if val_f1 > best_f1:
             best_f1 = val_f1
             patience_counter = 0
-            torch.save({
-                'epoch': epoch,
-                'model_state_dict': model.state_dict(),
-                'arcface_state_dict': arcface.state_dict(),
-                'optimizer_state_dict': optimizer.state_dict(),
-                'best_f1': best_f1,
-                'train_losses': train_losses,
-                'val_losses': val_losses,
-                'val_accuracies': val_accuracies,
-                'val_f1s': val_f1s
-            }, "best_face_model.pt")
+            torch.save(model.state_dict(), "face_model.pt")
             print(f"💾 New best model saved! F1: {best_f1:.4f}")
         else:
             patience_counter += 1
