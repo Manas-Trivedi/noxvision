@@ -123,7 +123,7 @@ You can specify the number of verification pairs, embedding dimension, and thres
 To train from scratch on the FACECOM dataset:
 
 ```bash
-python train.py
+python train_a.py
 ```
 
 - Make sure the training data is placed at:
@@ -138,7 +138,7 @@ python train.py
 
 - The best model is automatically saved as:
   ```
-  best_gender_model_balanced.pt
+  gender_model.pt
   ```
 
 ### Task B
