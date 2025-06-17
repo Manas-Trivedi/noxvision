@@ -1,4 +1,4 @@
-# utils/augmentations_v2.py
+# utils/augmentations.py
 import cv2
 import numpy as np
 import albumentations as A
@@ -22,16 +22,12 @@ def tan_triggs_preprocessing(img, alpha=0.1, tau=10.0, gamma=0.2, sigma0=1.0, si
     img = np.clip(img * 128 + 128, 0, 255).astype(np.uint8)
     return img
 
-def histogram_equalization(img, **kwargs):
-    """Apply histogram equalization for better contrast"""
-    if len(img.shape) == 3:
-        # Convert to LAB color space and apply to L channel
-        lab = cv2.cvtColor(img, cv2.COLOR_RGB2LAB)
-        lab[:,:,0] = cv2.equalizeHist(lab[:,:,0])
-        img = cv2.cvtColor(lab, cv2.COLOR_LAB2RGB)
-    else:
-        img = cv2.equalizeHist(img)
-    return img
+def clahe_equalization(img, **kwargs):
+    lab = cv2.cvtColor(img, cv2.COLOR_RGB2LAB)
+    clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
+    lab[:, :, 0] = clahe.apply(lab[:, :, 0])
+    return cv2.cvtColor(lab, cv2.COLOR_LAB2RGB)
+
 
 def simulate_adverse_conditions(image, **kwargs):
     """
@@ -91,7 +87,7 @@ def simulate_adverse_conditions(image, **kwargs):
 
     return image.astype(np.uint8)
 
-def get_balanced_train_transforms(image_size=224, minority_class_boost=True):
+def get_balanced_train_transforms(image_size=224):
     """
     Enhanced augmentation pipeline with more aggressive augmentation
     for minority class (female) samples
@@ -99,7 +95,7 @@ def get_balanced_train_transforms(image_size=224, minority_class_boost=True):
     transforms: List[Any] = [
         # Preprocessing
         A.Lambda(image=tan_triggs_preprocessing, p=0.3),
-        A.Lambda(image=histogram_equalization, p=0.3),
+        A.Lambda(image=clahe_equalization, p=0.3),
 
         # Geometric transformations
         A.RandomRotate90(p=0.3),
@@ -159,10 +155,10 @@ def get_aggressive_train_transforms(image_size=224):
     """
     More aggressive augmentation for minority class samples
     """
-    transforms: List[Any] = [ 
+    transforms: List[Any] = [
         # More aggressive preprocessing
         A.Lambda(image=tan_triggs_preprocessing, p=0.5),
-        A.Lambda(image=histogram_equalization, p=0.5),
+        A.Lambda(image=clahe_equalization, p=0.5),
 
         # More geometric variations
         A.RandomRotate90(p=0.5),
@@ -222,6 +218,8 @@ def get_aggressive_train_transforms(image_size=224):
 def get_val_transforms(image_size=224):
     """Minimal augmentation for validation"""
     transforms: List[Any] = [
+        # In get_val_transforms
+        A.Lambda(image=tan_triggs_preprocessing, p=1.0),
         A.Resize(image_size, image_size),
         A.Normalize(mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225)),
         ToTensorV2()
