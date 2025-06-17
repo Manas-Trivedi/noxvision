@@ -308,19 +308,14 @@ def train():
         if epoch >= warmup_epochs:
             scheduler.step()
 
-        # Evaluate every 3 epochs to save time
-        if (epoch + 1) % 3 == 0 or epoch == epochs - 1:
-            val_acc, val_f1, val_auc = evaluate_verification(model, val_ds, device, num_pairs=500)
-
-            print(f"[Epoch {epoch+1:2d}/{epochs}] 📉 Loss: {avg_loss:.4f} | 🎯 Val Acc: {val_acc:.4f} | 📊 Val F1: {val_f1:.4f} | 🔄 AUC: {val_auc:.4f}")
-
-            # Save best model
-            if val_acc > best_val_acc:
-                best_val_acc = val_acc
-                torch.save(model.state_dict(), "face_model.pt", _use_new_zipfile_serialization=False)
-                print(f"💾 New best model saved! Acc: {best_val_acc:.4f}")
-        else:
-            print(f"[Epoch {epoch+1:2d}/{epochs}] 📉 Loss: {avg_loss:.4f}")
+        # validate after each epoch to not miss the best model
+        val_acc, val_f1, val_auc = evaluate_verification(model, val_ds, device, num_pairs=500)
+        print(f"[Epoch {epoch+1:2d}/{epochs}] 📉 Loss: {avg_loss:.4f} | 🎯 Val Acc: {val_acc:.4f} | 📊 Val F1: {val_f1:.4f} | 🔄 AUC: {val_auc:.4f}")
+        # Save best model
+        if val_acc > best_val_acc:
+            best_val_acc = val_acc
+            torch.save(model.state_dict(), "face_model.pt", _use_new_zipfile_serialization=False)
+            print(f"💾 New best model saved! Acc: {best_val_acc:.4f}")
 
     print(f"🏆 Training completed! Best validation accuracy: {best_val_acc:.4f}")
 
