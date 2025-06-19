@@ -100,10 +100,10 @@ def get_balanced_train_transforms(image_size=224):
         # Geometric transformations
         A.RandomRotate90(p=0.3),
         A.HorizontalFlip(p=0.3),
-        A.ShiftScaleRotate(
-            shift_limit=0.1,
-            scale_limit=0.2,
-            rotate_limit=20,
+        A.Affine(
+            scale=(0.8, 1.2),
+            translate_percent=(-0.1, 0.1),
+            rotate=(-20, 20),
             p=0.5
         ),
 
@@ -163,10 +163,10 @@ def get_aggressive_train_transforms(image_size=224):
         # More geometric variations
         A.RandomRotate90(p=0.5),
         A.HorizontalFlip(p=0.5),
-        A.ShiftScaleRotate(
-            shift_limit=0.15,
-            scale_limit=0.3,
-            rotate_limit=30,
+        A.Affine(
+            scale=(0.7, 1.3),
+            translate_percent=(-0.15, 0.15),
+            rotate=(-30, 30),
             p=0.7
         ),
         A.Perspective(scale=(0.05, 0.1), p=0.3),
@@ -190,8 +190,8 @@ def get_aggressive_train_transforms(image_size=224):
 
         # Stronger noise and effects
         A.OneOf([
-            A.MotionBlur(blur_limit=10, p=1.0),
-            A.GaussianBlur(blur_limit=10, p=1.0),
+            A.MotionBlur(blur_limit=11, p=1.0),
+            A.GaussianBlur(blur_limit=11, p=1.0),
             A.MedianBlur(blur_limit=7, p=1.0),
         ], p=0.6),
 
@@ -205,7 +205,7 @@ def get_aggressive_train_transforms(image_size=224):
 
         # More weather effects
         A.OneOf([
-            A.GaussianBlur(blur_limit=10, p=1.0),
+            A.GaussianBlur(blur_limit=11, p=1.0),
             A.GaussNoise(std_range=(0.1, 0.5), mean_range=(0, 0), per_channel=True, noise_scale_factor=1, p=1.0)
         ], p=0.5),
 
